@@ -1,2 +1,2 @@
 [azure]
-ec2-18-118-194-5.us-east-2.compute.amazonaws.com ansible_ssh_private_key=../files/id_rsa
+4.246.158.198 ansible_ssh_private_key=../files/id_rsa
