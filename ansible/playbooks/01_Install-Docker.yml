@@ -44,15 +44,10 @@
     become: yes
   
   - name: Clone Git repository
-  git:
-    repo: https://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@github.com/husseinahmed-dev/LS-Lab2.git
-    dest: ~/
-    update: yes
-
-  - name: Change into src directory
-    become: yes
-    command: cd ~/LS-Lab2/src
+    git:
+      repo: https://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@github.com/husseinahmed-dev/LS-Lab2.git
+      dest: /home/azureuser/LS-Lab2
+      update: yes
 
   - name: Run docker-compose up
-    become: yes
-    command: docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+    command: chdir=/home/azureuser/LS-Lab2/src docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
