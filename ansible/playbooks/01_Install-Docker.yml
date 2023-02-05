@@ -25,7 +25,7 @@
 
   - name: Install docker-compose
     get_url: 
-      url: https://github.com/docker/compose/releases/download/v2.15.1/docker-compose-darwin-x86_64
+      url: https://github.com/docker/compose/releases/download/v2.15.1/docker-compose-linux-x86_64
       dest: /usr/local/bin/docker-compose
       mode: '+x'
 
@@ -38,3 +38,9 @@
 
   - name: Docker service status
     debug: var=service_output
+  
+  - name: Add current user to Docker group
+    command: usermod -aG docker azureuser
+    
+  - name: Update current user's group membership
+    command: newgrp docker
