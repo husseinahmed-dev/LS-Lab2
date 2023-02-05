@@ -9,7 +9,7 @@ resource "azurerm_resource_group" "rg" {
 
 # Create virtual network
 resource "azurerm_virtual_network" "my_terraform_network" {
-  name                = "myVnet"
+  name                = "Vnet_LargeSystems"
   address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
@@ -17,7 +17,7 @@ resource "azurerm_virtual_network" "my_terraform_network" {
 
 # Create subnet
 resource "azurerm_subnet" "my_terraform_subnet" {
-  name                 = "mySubnet"
+  name                 = "Subnet_LargeSystems"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.my_terraform_network.name
   address_prefixes     = ["10.0.1.0/24"]
@@ -25,7 +25,7 @@ resource "azurerm_subnet" "my_terraform_subnet" {
 
 # Create public IPs
 resource "azurerm_public_ip" "my_terraform_public_ip" {
-  name                = "myPublicIP"
+  name                = "PublicIP_LargeSystems"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   allocation_method   = "Dynamic"
@@ -33,7 +33,7 @@ resource "azurerm_public_ip" "my_terraform_public_ip" {
 
 # Create Network Security Group and rule
 resource "azurerm_network_security_group" "my_terraform_nsg" {
-  name                = "myNetworkSecurityGroup"
+  name                = "NetworkSecurityGroup_LargeSystems"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
@@ -52,12 +52,12 @@ resource "azurerm_network_security_group" "my_terraform_nsg" {
 
 # Create network interface
 resource "azurerm_network_interface" "my_terraform_nic" {
-  name                = "myNIC"
+  name                = "NIC_LargeSystems"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
   ip_configuration {
-    name                          = "my_nic_configuration"
+    name                          = "large_systems_nic_configuration"
     subnet_id                     = azurerm_subnet.my_terraform_subnet.id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.my_terraform_public_ip.id
@@ -97,11 +97,11 @@ resource "tls_private_key" "example_ssh" {
 
 # Create virtual machine
 resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
-  name                  = "myVM"
+  name                  = "VM_LargeSystems"
   location              = azurerm_resource_group.rg.location
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.my_terraform_nic.id]
-  size                  = "Standard_DS1_v2"
+  size                  = "Standard_B2ms"
 
   os_disk {
     name                 = "myOsDisk"
@@ -116,7 +116,7 @@ resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
     version   = "latest"
   }
 
-  computer_name                   = "myvm"
+  computer_name                   = "largesystems-vm"
   admin_username                  = "azureuser"
   disable_password_authentication = true
 
