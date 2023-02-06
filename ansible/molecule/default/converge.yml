@@ -2,4 +2,4 @@
 - name: Converge
   hosts: all
 
-- import_playbook: ../../playbooks/01_Deploy-Application.yml
+- import_playbook: ../../main_molecule.yml
