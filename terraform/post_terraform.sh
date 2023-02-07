@@ -13,4 +13,8 @@ TEST_IP_ADDRESS=$(terraform output public_ip_address)
 PUBLIC_IP_ADDRESS=$(echo $TEST_IP_ADDRESS | tr -d '"')
 
 # Use the stored private key and public IP address to ssh into the remote machine
-ssh -i ../ansible/files/id_rsa azureuser@$PUBLIC_IP_ADDRESS
+#ssh -i ../ansible/files/id_rsa azureuser@$PUBLIC_IP_ADDRESS
+
+sed -i "1 a$PUBLIC_IP_ADDRESS" ../ansible/inventory/hosts
+
+(cd ../ansible/ && ansible-playbook playbooks/01_Deploy-Application.yml -i inventory/hosts --private-key=files/id_rsa)
