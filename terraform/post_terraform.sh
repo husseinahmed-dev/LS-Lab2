@@ -16,5 +16,5 @@ PUBLIC_IP_ADDRESS=$(echo $TEST_IP_ADDRESS | tr -d '"')
 #ssh -i ../ansible/files/id_rsa azureuser@$PUBLIC_IP_ADDRESS
 
 sed -i "1 a$PUBLIC_IP_ADDRESS" ../ansible/inventory/hosts
-
+export ANSIBLE_HOST_KEY_CHECKING=False
 (cd ../ansible/ && ansible-playbook playbooks/01_Deploy-Application.yml -i inventory/hosts --private-key=files/id_rsa)
