@@ -45,7 +45,7 @@
   
   - name: Clone Git repository
     git:
-      repo: https://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@github.com/husseinahmed-dev/LS-Lab2.git
+      repo: https://github.com/husseinahmed-dev/LS-Lab2.git
       dest: /home/azureuser/LS-Lab2
       update: yes
 
